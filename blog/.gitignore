@@ -1,0 +1,8 @@
+node_modules/
+public/
+posts/
+test-artifacts/
+playwright-report/
+test-results.json
+.firebase/
+*.log

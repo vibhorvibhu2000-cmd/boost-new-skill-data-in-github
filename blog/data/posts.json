@@ -1,0 +1,144 @@
+{
+  "posts": [
+    {
+      "slug": "boring-parts-of-scale",
+      "title": "The boring parts of scale: what actually breaks at 10x",
+      "tag": "Architecture",
+      "date": "2026-10-14",
+      "readTime": 11,
+      "excerpt": "Everyone writes about the interesting parts of scaling. This is a field guide to the unglamorous failures — connection pools, fan-out, and the cost of a synchronous call.",
+      "body": [
+        "Scaling has a highlight reel. We talk about load balancers, sharding strategies and the elegance of a well-plotted latency curve. But the systems that actually break at ten times the traffic are almost never the interesting ones.",
+        "The three that broke for us were boring: a connection pool that was sized for ten workers running against a hundred, a synchronous call to a service that was down but not dead, and a fan-out that turned one query into four hundred. None of them had anything to do with the language or the framework.",
+        "The pattern is always the same. At small scale, the system is forgiving. A blocking call blocks one request out of fifty, and fifty requests is nothing. At scale, blocking calls multiply, and the multiplication is invisible in code review.",
+        "So before you add a cache or a queue, look for the boring answers: is the pool big enough, is the timeout sane, does this call have a fallback. Nine times out of ten the fix is a number, not an architecture."
+      ]
+    },
+    {
+      "slug": "ci-is-a-product",
+      "title": "Your CI is a product, treat it like one",
+      "tag": "DX",
+      "date": "2026-09-30",
+      "readTime": 7,
+      "excerpt": "Fast feedback loops are a feature. Treat your pipeline like a user-facing product and the numbers follow.",
+      "body": [
+        "Nobody argues about a product's response time more than they argue about a pipeline's. And yet most teams treat their CI as plumbing rather than as something their developers consume every single day.",
+        "The engineers on your team are your users. When the pipeline takes twenty minutes, you are not saving machine time — you are making twenty people wait. Context switching costs more than the compute.",
+        "Treating it like a product means you measure it: duration, flakiness, time-to-first-signal. It means you have a roadmap for it. It means a broken pipeline for two hours is an incident, not a shrug.",
+        "The cheapest wins are usually the same. Cache the dependency install. Run the fast unit tests before the slow integration ones. Shard the matrix. Fail fast on lint. None of it is clever, and all of it compounds."
+      ]
+    },
+    {
+      "slug": "interfaces-that-explain-themselves",
+      "title": "Interfaces that explain themselves",
+      "tag": "Design",
+      "date": "2026-09-12",
+      "readTime": 6,
+      "excerpt": "Good design removes the need for a tutorial. A few principles I use to get there.",
+      "body": [
+        "The best compliment an interface can get is that nobody needed to explain it. Not that it was beautiful — that it was obvious.",
+        "Obvious is a design outcome, not a happy accident. It comes from three habits: naming things after what they do instead of what they are, putting the common action where the eye lands first, and refusing to show state the user does not need.",
+        "The third one is the hardest. Every visible indicator is a claim that the user has to evaluate. A second badge saying nothing is not information — it is noise with a cost.",
+        "If a new user can get value in the first ten seconds without reading anything, you have probably designed it well. Everything else is decoration."
+      ]
+    },
+    {
+      "slug": "ten-years-in",
+      "title": "Ten years in: what I'd tell my junior self",
+      "tag": "Career",
+      "date": "2026-08-21",
+      "readTime": 9,
+      "excerpt": "On choosing problems over companies, writing things down, and staying curious.",
+      "body": [
+        "If I could send one message back a decade, it would not be about frameworks. It would be about choosing problems over employers.",
+        "A company changes its strategy every eighteen months. A problem — the thing you have been wrestling with for six months until it finally clicked — that stays interesting long enough for you to become genuinely good at it.",
+        "Write things down. Every architectural decision, every post-mortem, every thing you tried that did not work. Not for an audience. For the next person, which ten years later is you.",
+        "And stay curious. The people who look like they are naturally talented are usually the ones who never stopped asking why a thing works."
+      ]
+    },
+    {
+      "slug": "caching-is-not-free",
+      "title": "Caching is not free: the hidden cost of a cache hit",
+      "tag": "Performance",
+      "date": "2026-08-04",
+      "readTime": 8,
+      "excerpt": "Every cache trades memory for latency and staleness for simplicity. Here is the bill.",
+      "body": [
+        "Caching is presented as free money. You compute something once, serve it many times, everyone is happy. The reality has a longer invoice.",
+        "A cache converts a time problem into a space problem and a correctness problem. You now need eviction policy, invalidation, and a mental model of how stale a thing is allowed to be.",
+        "Invalidation is where the bugs live. Not the obvious cases — those get handled. The subtle ones: two writers racing, a cache warmed from a replica that is behind, an entry that outlives the permission that created it.",
+        "Before adding a cache, ask whether the query is actually the problem. Often a missing index and a chatty ORM are cheaper to fix, and they cannot serve stale data."
+      ]
+    },
+    {
+      "slug": "zero-downtime-migrations",
+      "title": "Zero-downtime database migrations, step by step",
+      "tag": "Databases",
+      "date": "2026-07-19",
+      "readTime": 12,
+      "excerpt": "The expand-migrate-contract pattern, explained with the failure modes that happen when you skip a step.",
+      "body": [
+        "Migrations are the one deploy where you cannot simply roll back, because the previous version of the code has already been talking to the new version of the schema.",
+        "The expand-migrate-contract pattern exists to keep both versions working at the same time. Expand: add the new column, nullable, alongside the old one. Migrate: backfill in batches, then dual-write. Contract: drop the old column, later, in a separate deploy.",
+        "Every step exists because a naive migration breaks something. Adding a non-null column with a default locks the table on older engines. Backfilling in one shot starves the replica. Dropping the old column in the same deploy as the code change breaks the pods you forgot to restart.",
+        "Also: schema changes should never travel with feature changes. Mixing them means a rollback rolls back the feature too. Separate deploys are slightly slower and dramatically safer."
+      ]
+    },
+    {
+      "slug": "design-system-nobody-hates",
+      "title": "Building a design system nobody hates",
+      "tag": "Design",
+      "date": "2026-07-02",
+      "readTime": 10,
+      "excerpt": "Adoption is a politics problem, not a documentation problem. How to get teams to actually use the thing.",
+      "body": [
+        "Every company has a design system, and most of them are quietly hated. Nobody says anything, so it stays, and new code keeps rolling its own buttons.",
+        "The failure is almost never technical. It is that the system was built for the design team and shipped to the engineers as a rulebook. If using it requires more effort than not using it, it will not be used.",
+        "Make the right thing the easy thing. One import, sensible defaults, props that cover ninety percent of cases. Every exception you require is a reason to bypass the system forever.",
+        "Then get out of the way. Let teams contribute components to it, publish what is missing, and never block a deadline over a spacing token. A design system that slows people down does not survive the quarter."
+      ]
+    },
+    {
+      "slug": "observability-for-small-teams",
+      "title": "Observability for small teams: logs, traces, and sane alerts",
+      "tag": "Engineering",
+      "date": "2026-06-11",
+      "readTime": 9,
+      "excerpt": "You do not need a three-figure dashboard bill. You need to answer three questions fast.",
+      "body": [
+        "Observability tooling has been aggressively sold to teams that do not have the headcount to read it. A wall of graphs is not observability; it is guilt with a colour palette.",
+        "Three questions cover most of what you need. What is broken? Where is it broken? When did it start? Logs answer the first, traces answer the second, and the third is a timestamp comparison you can do in your head.",
+        "The rest is discipline. Structured logs with a request id. Spans that record the slow call, not every call. And alerts that page a human only when a human can do something about it.",
+        "Start with one service, one request id, one dashboard. Get the value, then widen. Reverse that order and you will spend a quarter building infrastructure nobody opens."
+      ]
+    },
+    {
+      "slug": "tools-i-actually-kept",
+      "title": "The tools I actually kept after five years",
+      "tag": "Tooling",
+      "date": "2026-05-23",
+      "readTime": 5,
+      "excerpt": "Most tools I tried became noise. These five survived every rewrite.",
+      "body": [
+        "I have a graveyard of tools: the config formatter, the state manager, the plugin system, the dashboard framework. Each was brilliant for about a month.",
+        "The ones that survived share a property. They are boring, they are local-first, and they do one thing. A plain text file, a shell script, a keyboard-driven fuzzy finder, a diff tool, and a static site generator.",
+        "Every tool you add is a tool you have to understand, configure, upgrade, and eventually replace. That cost is paid over years, and it is rarely counted.",
+        "The best stack is the one with the fewest moving parts you still trust. Everything else is a hobby you are paying rent on."
+      ]
+    },
+    {
+      "slug": "shipping-feedback-loops",
+      "title": "Shipping feedback loops into small teams",
+      "tag": "Career",
+      "date": "2026-05-06",
+      "readTime": 6,
+      "excerpt": "How to make learning faster than shipping, without adding a process layer.",
+      "body": [
+        "Small teams have one advantage that nobody uses: the distance between an idea and a person who can try it is measured in hours, not quarters.",
+        "Most of that advantage is lost to process. Ticket grooming, design review, a release train. Each layer is individually defensible and collectively fatal for a team of five.",
+        "What replaces it is a feedback loop, not a gate. Show the rough version, watch someone use it, fix the thing they stumble on. The loop is short because there is no approval queue in it.",
+        "The trap is confusing motion with learning. Shipping every week is not the goal. A team that ships weekly and learns nothing has just built a faster way to be wrong."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Emberlog — Notes on engineering, design &amp; everything between</title>
+<meta name="description" content="Emberlog is a personal blog about software engineering, product design and the messy middle of building things." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true">◐</span>
+        <span class="brand-name">Emberlog</span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Main navigation">
+        <div class="nav-item has-menu">
+          <button class="nav-link nav-trigger" id="blogMenuBtn" aria-expanded="false" aria-controls="blogMenu">
+            Writing <span class="caret" aria-hidden="true">▾</span>
+          </button>
+          <div class="nav-menu" id="blogMenu" role="menu" aria-labelledby="blogMenuBtn">
+            <p class="nav-menu-title">Latest posts</p>
+            <ul class="blog-list" id="blogList">
+              <li role="none"><a role="menuitem" href="/posts/boring-parts-of-scale.html"><span class="blog-title">The boring parts of scale: what actually breaks at 10x</span><span class="blog-meta">Architecture · 11 min</span></a></li>
+              <li role="none"><a role="menuitem" href="/posts/ci-is-a-product.html"><span class="blog-title">Your CI is a product, treat it like one</span><span class="blog-meta">DX · 7 min</span></a></li>
+              <li role="none"><a role="menuitem" href="/posts/interfaces-that-explain-themselves.html"><span class="blog-title">Interfaces that explain themselves</span><span class="blog-meta">Design · 6 min</span></a></li>
+              <li role="none"><a role="menuitem" href="/posts/ten-years-in.html"><span class="blog-title">Ten years in: what I'd tell my junior self</span><span class="blog-meta">Career · 9 min</span></a></li>
+              <li role="none"><a role="menuitem" href="/posts/caching-is-not-free.html"><span class="blog-title">Caching is not free: the hidden cost of a cache hit</span><span class="blog-meta">Performance · 8 min</span></a></li>
+              <li role="none"><a role="menuitem" href="/posts/zero-downtime-migrations.html"><span class="blog-title">Zero-downtime database migrations, step by step</span><span class="blog-meta">Databases · 12 min</span></a></li>
+              <li role="none"><a role="menuitem" href="/posts/design-system-nobody-hates.html"><span class="blog-title">Building a design system nobody hates</span><span class="blog-meta">Design · 10 min</span></a></li>
+              <li role="none"><a role="menuitem" href="/posts/observability-for-small-teams.html"><span class="blog-title">Observability for small teams: logs, traces, and sane alerts</span><span class="blog-meta">Engineering · 9 min</span></a></li>
+              <li role="none"><a role="menuitem" href="/posts/tools-i-actually-kept.html"><span class="blog-title">The tools I actually kept after five years</span><span class="blog-meta">Tooling · 5 min</span></a></li>
+              <li role="none"><a role="menuitem" href="/posts/shipping-feedback-loops.html"><span class="blog-title">Shipping feedback loops into small teams</span><span class="blog-meta">Career · 6 min</span></a></li>
+            </ul>
+            <a class="nav-menu-all" href="/posts/">View all posts →</a>
+          </div>
+        </div>
+        <a href="#topics">Topics</a>
+        <a href="#about">About</a>
+        <a href="#newsletter" class="btn btn-sm btn-primary">Subscribe</a>
+      </nav>
+
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="nav" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <p class="eyebrow">Personal blog · est. 2019</p>
+        <h1>Notes on building things<br /><em>that actually work.</em></h1>
+        <p class="lede">
+          Deep dives into software engineering, product design, and the messy middle
+          where good ideas get turned into shipped software.
+        </p>
+        <div class="hero-actions">
+          <a href="#posts" class="btn btn-primary">Read the latest</a>
+          <a href="#about" class="btn btn-ghost">More about me</a>
+        </div>
+        <dl class="hero-stats">
+          <div><dt>Posts</dt><dd>128</dd></div>
+          <div><dt>Readers</dt><dd>12.4k</dd></div>
+          <div><dt>Years writing</dt><dd>6</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- Featured -->
+    <section class="section" id="posts">
+      <div class="container">
+        <div class="section-head">
+          <h2>Featured writing</h2>
+          <a class="link" href="#">View all posts →</a>
+        </div>
+
+        <article class="featured">
+          <div class="featured-media" role="img" aria-label="Abstract gradient artwork">
+            <span class="chip">Featured</span>
+          </div>
+          <div class="featured-body">
+            <div class="meta">
+              <span class="tag">Architecture</span>
+              <time datetime="2026-10-14">Oct 14, 2026</time>
+              <span>·</span>
+              <span>11 min read</span>
+            </div>
+            <h3>The boring parts of scale: what actually breaks at 10x</h3>
+            <p>
+              Everyone writes about the interesting parts of scaling. This is a field guide to
+              the unglamorous failures — connection pools, fan-out, and the cost of a synchronous call.
+            </p>
+            <a class="link" href="#">Read the post →</a>
+          </div>
+        </article>
+
+        <div class="grid">
+          <article class="card">
+            <div class="meta"><span class="tag">DX</span><time datetime="2026-09-30">Sep 30, 2026</time></div>
+            <h3>Your CI is a product, treat it like one</h3>
+            <p>Fast feedback loops are a feature. Treat your pipeline like a user-facing product and the numbers follow.</p>
+            <a class="link" href="#">Read →</a>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="tag">Design</span><time datetime="2026-09-12">Sep 12, 2026</time></div>
+            <h3>Interfaces that explain themselves</h3>
+            <p>Good design removes the need for a tutorial. A few principles I use to get there.</p>
+            <a class="link" href="#">Read →</a>
+          </article>
+
+          <article class="card">
+            <div class="meta"><span class="tag">Career</span><time datetime="2026-08-21">Aug 21, 2026</time></div>
+            <h3>Ten years in: what I'd tell my junior self</h3>
+            <p>On choosing problems over companies, writing things down, and staying curious.</p>
+            <a class="link" href="#">Read →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Topics -->
+    <section class="section section-alt" id="topics">
+      <div class="container">
+        <div class="section-head">
+          <h2>Browse by topic</h2>
+        </div>
+        <div class="topics">
+          <a class="topic" href="#"><span class="topic-count">34</span><span class="topic-name">Engineering</span></a>
+          <a class="topic" href="#"><span class="topic-count">21</span><span class="topic-name">Design systems</span></a>
+          <a class="topic" href="#"><span class="topic-count">18</span><span class="topic-name">Databases</span></a>
+          <a class="topic" href="#"><span class="topic-count">15</span><span class="topic-name">Performance</span></a>
+          <a class="topic" href="#"><span class="topic-count">12</span><span class="topic-name">Career</span></a>
+          <a class="topic" href="#"><span class="topic-count">9</span><span class="topic-name">Tooling</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="section" id="about">
+      <div class="container about">
+        <div class="about-media" role="img" aria-label="Portrait placeholder"></div>
+        <div>
+          <h2>Hi, I'm Alex.</h2>
+          <p>
+            I'm a staff engineer who writes about the systems I build and the trade-offs behind
+            them. I currently work on developer tooling, and previously spent four years
+            building data-heavy products.
+          </p>
+          <p>
+            This blog is where I think out loud — half-finished thoughts, post-mortems, and
+            the occasional strong opinion about tabs vs. spaces.
+          </p>
+          <div class="hero-actions">
+            <a href="#" class="btn btn-primary">About me</a>
+            <a href="#" class="btn btn-ghost">Get in touch</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="section section-alt" id="newsletter">
+      <div class="container newsletter">
+        <h2>One email every two weeks</h2>
+        <p>No spam, no growth hacks. Just new posts and the occasional link worth your time. Unsubscribe anytime.</p>
+        <form class="subscribe" id="subscribeForm" novalidate>
+          <label class="sr-only" for="email">Email address</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+        <p class="form-msg" id="formMsg" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-brand">© 2026 Emberlog</p>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="#">RSS</a>
+        <a href="#">GitHub</a>
+        <a href="#">Mastodon</a>
+        <a href="#">Email</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

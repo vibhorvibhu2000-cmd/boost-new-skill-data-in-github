@@ -1,0 +1,8 @@
+{
+  "hosting": {
+    "public": "public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**", "tests/**", "test-artifacts/**", "playwright-report/**", "*.png", "*.cjs", "package*.json"],
+    "cleanUrls": true,
+    "rewrites": [{ "source": "**", "destination": "/index.html" }]
+  }
+}

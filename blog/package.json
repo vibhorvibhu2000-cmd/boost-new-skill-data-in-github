@@ -1,0 +1,20 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "Emberlog — static personal blog",
+  "scripts": {
+    "build": "node build.mjs",
+    "serve": "npx.cmd --yes http-server -p 4173 -c-1 .",
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:report": "playwright show-report",
+    "deploy": "npm.cmd run build && firebase.cmd deploy --only hosting"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.64.1"
+  }
+}
